@@ -2,6 +2,7 @@
   (* File Expr/ExprPar.fsy
      Parser specification for the simple expression language.
    *)
+   (* If expr added by Recursive Rebels*)
 
   open Absyn
 %}
@@ -16,6 +17,7 @@
 
 %left MINUS PLUS        /* lowest precedence  */
 %left TIMES             /* highest precedence */
+%right IF ELSE THEN
 
 %start Main
 %type <Absyn.expr> Main 
@@ -25,8 +27,6 @@
 Main:
     Expr EOF                            { $1                }
 ;
-
-{(*If expression added by Recursive Rebels*)}
 
 Expr:
     NAME                                { Var $1            }

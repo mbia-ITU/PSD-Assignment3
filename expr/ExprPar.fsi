@@ -4,6 +4,9 @@ type token =
   | EOF
   | LPAR
   | RPAR
+  | IF
+  | ELSE
+  | THEN
   | END
   | IN
   | LET
@@ -18,6 +21,9 @@ type tokenId =
     | TOKEN_EOF
     | TOKEN_LPAR
     | TOKEN_RPAR
+    | TOKEN_IF
+    | TOKEN_ELSE
+    | TOKEN_THEN
     | TOKEN_END
     | TOKEN_IN
     | TOKEN_LET

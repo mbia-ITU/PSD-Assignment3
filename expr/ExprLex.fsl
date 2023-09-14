@@ -3,6 +3,8 @@
    Lexer specification for the simple expression language.
 *)
 
+(* if then and else added in keyword function, by Recursive Rebels *)
+
 module ExprLex
 
 open FSharp.Text.Lexing
@@ -19,10 +21,11 @@ let keyword s =
     | "let" -> LET
     | "in"  -> IN
     | "end" -> END
+    | "if" -> IF
+    | "then" -> THEN
+    | "else" -> ELSE
     | _     -> NAME s
 }
-
-{(*'if' 'then' and 'else' added by Recursive Rebels*)}
 
 rule Token = parse
   | [' ' '\t' '\r'] { Token lexbuf }
@@ -36,9 +39,6 @@ rule Token = parse
   | '='             { EQ    } 
   | '('             { LPAR  } 
   | ')'             { RPAR  }
-  | "if"            { IF    }
-  | "then"          { THEN  }
-  | "else"          { ELSE  }
   | eof             { EOF   }
   | _               { failwith "Lexer error: illegal symbol" }
   
