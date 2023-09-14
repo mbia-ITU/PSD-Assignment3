@@ -22,6 +22,8 @@ let keyword s =
     | _     -> NAME s
 }
 
+{(*'if' 'then' and 'else' added by Recursive Rebels*)}
+
 rule Token = parse
   | [' ' '\t' '\r'] { Token lexbuf }
   | '\n'            { lexbuf.EndPos <- lexbuf.EndPos.NextLine; Token lexbuf }
@@ -33,7 +35,10 @@ rule Token = parse
   | '*'             { TIMES }
   | '='             { EQ    } 
   | '('             { LPAR  } 
-  | ')'             { RPAR  } 
+  | ')'             { RPAR  }
+  | "if"            { IF    }
+  | "then"          { THEN  }
+  | "else"          { ELSE  }
   | eof             { EOF   }
   | _               { failwith "Lexer error: illegal symbol" }
   

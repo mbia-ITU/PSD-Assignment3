@@ -6,6 +6,8 @@ module Expr
 
 open System.IO
 open Absyn
+open Parse
+(*The only addition is the function compString at the end*)
 
 (* From file expr/expr.sml * Simple arithmetic expressions *)
  
@@ -165,7 +167,7 @@ type texpr =                            (* target expressions *)
 let rec getindex env x = 
     match env with 
     | [] -> raise (Failure "Variable not found")
-    | y::yr -> if x=y then 0 else 1 + getindex yr x;
+    | y::yr -> if x=y then 0 else 1 + getindex yr x;;
 
 (* Compiling from expr to texpr.  The compile-time environment cenv is
    a list of variable names; the position of a variable in the list
@@ -333,3 +335,7 @@ let s3 = scomp e3 []
 let intsToFile (inss : int list) (fname : string) = 
     let text = String.concat " " (List.map string inss)
     System.IO.File.WriteAllText(fname, text);;
+
+(* function compString has been made by Recursive Rebels*)
+let compString (s:string) : sinstr list =  
+    scomp (fromString s) []

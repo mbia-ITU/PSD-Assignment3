@@ -10,6 +10,7 @@
 %token <string> NAME
 %token PLUS MINUS TIMES DIVIDE EQ
 %token END IN LET
+%token IF ELSE THEN
 %token LPAR RPAR
 %token EOF
 
@@ -25,12 +26,15 @@ Main:
     Expr EOF                            { $1                }
 ;
 
+{(*If expression added by Recursive Rebels*)}
+
 Expr:
     NAME                                { Var $1            }
   | CSTINT                              { CstI $1           }
   | MINUS CSTINT                        { CstI (- $2)       }
   | LPAR Expr RPAR                      { $2                }
   | LET NAME EQ Expr IN Expr END        { Let($2, $4, $6)   }
+  | IF Expr THEN Expr ELSE Expr         { If($2, $4, $6)    }
   | Expr TIMES Expr                     { Prim("*", $1, $3) }
   | Expr PLUS  Expr                     { Prim("+", $1, $3) }  
   | Expr MINUS Expr                     { Prim("-", $1, $3) } 
